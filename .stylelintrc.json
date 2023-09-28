@@ -1,0 +1,12 @@
+{
+    "rules": {
+        "selector-class-pattern": null,
+        "font-family-no-missing-generic-family-keyword": [
+            true,
+            {
+                "ignoreFontFamilies": ["StratosSkyeng"]
+            }
+        ]
+    },
+    "extends": ["stylelint-config-standard"]
+}
