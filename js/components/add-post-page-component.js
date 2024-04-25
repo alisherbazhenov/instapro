@@ -1,14 +1,10 @@
-import { renderHeaderComponent } from './header-component.js';
-import { renderUploadImageComponent } from './upload-image-component.js';
-
+import { renderHeaderComponent } from "./header-component.js";
+import { renderUploadImageComponent } from "./upload-image-component.js";
 
 export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
-	let imageUrl = '';
-	const render = () => {
-		// TODO: Реализовать страницу добавления поста
-
-		// моя разметка
-		const appHtml = `
+  let imageUrl = "";
+  const render = () => {
+    const appHtml = `
 		<div class="page-container">
 		<div class="header-container"></div>
 			<div class="form">
@@ -27,30 +23,28 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
 	  	</div>
   `;
 
-		appEl.innerHTML = appHtml;
+    appEl.innerHTML = appHtml;
 
+    renderHeaderComponent({
+      element: document.querySelector(".header-container"),
+    });
 
-		renderHeaderComponent({
-			element: document.querySelector(".header-container"),
-		});
+    renderUploadImageComponent({
+      element: document.querySelector(".upload-image-container"),
+      onImageUrlChange: (newImageUrl) => {
+        imageUrl = newImageUrl;
+      },
+    });
 
-		renderUploadImageComponent({
-			element: document.querySelector(".upload-image-container"),
-			onImageUrlChange: (newImageUrl) => {
-				imageUrl = newImageUrl;
-			}
-		});
+    document.getElementById("add-button").addEventListener("click", () => {
+      const description = appEl.querySelector(".input.textarea");
 
+      onAddPostClick({
+        description: description.value,
+        imageUrl: imageUrl,
+      });
+    });
+  };
 
-		document.getElementById("add-button").addEventListener("click", () => {
-			const description = appEl.querySelector(".input.textarea");
-
-			onAddPostClick({
-				description: description.value,
-				imageUrl: imageUrl,
-			});
-		});
-	};
-
-	render();
+  render();
 }
